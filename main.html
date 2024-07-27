@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Map with Background Music</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #map {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+    <audio id="background-music" src="https://www.sample-videos.com/audio/mp3/crowd-cheering.mp3" loop></audio>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"> </script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([-22.9068, -43.1729], 13); // Coordinates for Rio de Janeiro
+
+        // Add a tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Add a marker to the map
+        L.marker([-22.9068, -43.1729]).addTo(map)
+            .bindPopup('Rio de Janeiro<br>Tim Maia - Do Leme ao Pontal.')
+            .openPopup();
+
+        // Function to autoplay background music
+        function autoplayBackgroundMusic() {
+            var music = document.getElementById('background-music');
+            music.play().catch(error => {
+                console.log('Autoplay was prevented:', error);
+                // Optional: You can add a button here to allow user to start the music manually
+            });
+        }
+
+        // Call the function to autoplay background music
+        autoplayBackgroundMusic();
+
+        // Optional: Autoplay workaround by enabling user interaction
+        window.addEventListener('click', function() {
+            var music = document.getElementById('background-music');
+            if (music.paused) {
+                music.play();
+            }
+        });
+    </script>
+</body>
+</html>
