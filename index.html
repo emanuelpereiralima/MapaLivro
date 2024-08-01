@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaflet Map with Background Music</title>
+    <title>Do Leme ao Pontal</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         body, html {
@@ -13,17 +13,32 @@
             flex-direction: column;
         }
 
+        #controls {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+
         #map {
             flex: 1;
+            width: 100%;
+        }
+
+        #play-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-
+    <div id="controls">
+        <button id="play-button">►</button>
+    </div>
     <div id="map"></div>
-    <audio id="background-music" src="https://www.sample-videos.com/audio/mp3/crowd-cheering.mp3" loop></audio>
+    <audio id="background-music" src="07 do leme ao pontal.mp3" loop></audio>
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"> </script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         // Initialize the map
         var map = L.map('map').setView([-22.9068, -43.1729], 13); // Coordinates for Rio de Janeiro
@@ -36,27 +51,15 @@
 
         // Add a marker to the map
         L.marker([-22.9068, -43.1729]).addTo(map)
-            .bindPopup('Rio de Janeiro<br>Tim Maia - Do Leme ao Pontal.')
+            .bindPopup('Do Leme ao Pontal<br>Tim Maia')
             .openPopup();
 
-        // Function to autoplay background music
-        function autoplayBackgroundMusic() {
+        // Play button functionality
+        document.getElementById('play-button').addEventListener('click', function() {
             var music = document.getElementById('background-music');
             music.play().catch(error => {
-                console.log('Autoplay was prevented:', error);
-                // Optional: You can add a button here to allow user to start the music manually
+                console.log('Playback was prevented:', error);
             });
-        }
-
-        // Call the function to autoplay background music
-        autoplayBackgroundMusic();
-
-        // Optional: Autoplay workaround by enabling user interaction
-        window.addEventListener('click', function() {
-            var music = document.getElementById('background-music');
-            if (music.paused) {
-                music.play();
-            }
         });
     </script>
 </body>
